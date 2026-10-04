@@ -1,0 +1,64 @@
+name: StaffPlaytime
+main: com.staffplaytime.StaffPlaytimePlugin
+version: ${project.version}
+api-version: '1.21'
+description: Tracks how long staff members really play (idle time is not counted).
+
+commands:
+  staffplaytime:
+    description: Staff playtime main command
+    usage: /<command> help
+    aliases: [spt, splaytime]
+
+permissions:
+  staffplaytime.use:
+    description: Use /staffplaytime and see the help page
+    default: true
+  staffplaytime.check:
+    description: Check your own playtime
+    default: op
+  staffplaytime.check.others:
+    description: Check the playtime of other staff members
+    default: op
+  staffplaytime.gui:
+    description: Open the playtime GUI with /staffplaytime gui
+    default: op
+  staffplaytime.leaderboard:
+    description: Open the leaderboard with /staffplaytime leaderboard
+    default: op
+  staffplaytime.lastweek:
+    description: See the previous week (command and GUI tab)
+    default: op
+  staffplaytime.alltime:
+    description: See the all-time tab in the GUI
+    default: op
+  staffplaytime.reset:
+    description: Reset the playtime of one staff member
+    default: op
+  staffplaytime.resetall:
+    description: Reset the playtime of ALL staff (current week)
+    default: op
+  staffplaytime.resetall.history:
+    description: Also wipe previous weeks when resetting everything
+    default: op
+  staffplaytime.reload:
+    description: Reload config.yml
+    default: op
+  staffplaytime.exempt:
+    description: Never tracked, even if the player has a staff rank
+    default: false
+  staffplaytime.admin:
+    description: Everything in one node
+    default: op
+    children:
+      staffplaytime.use: true
+      staffplaytime.check: true
+      staffplaytime.check.others: true
+      staffplaytime.gui: true
+      staffplaytime.leaderboard: true
+      staffplaytime.lastweek: true
+      staffplaytime.alltime: true
+      staffplaytime.reset: true
+      staffplaytime.resetall: true
+      staffplaytime.resetall.history: true
+      staffplaytime.reload: true

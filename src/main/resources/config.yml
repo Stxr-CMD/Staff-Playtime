@@ -1,0 +1,122 @@
+# ============================================================
+#  StaffPlaytime config
+#  Text uses MiniMessage: https://docs.advntr.dev/minimessage/format.html
+#  After editing, use /staffplaytime reload (storage changes need a restart)
+# ============================================================
+
+# Shown in front of messages wherever you write <prefix>
+prefix: "<dark_red><bold>STAFF PLAYTIME</bold></dark_red> <dark_gray>»</dark_gray> "
+
+# ------------------------------------------------------------
+# Where playtime is saved.
+# sqlite = a file on this server only.
+# mysql  = use the SAME database on every backend server of your network,
+#          then playtime from all servers is added together in one list.
+# The proxy (Velocity/BungeeCord) does not need the plugin, only the backends do.
+# ------------------------------------------------------------
+storage:
+  type: sqlite
+  mysql:
+    host: localhost
+    port: 3306
+    database: minecraft
+    username: root
+    password: ""
+
+# ------------------------------------------------------------
+# How playtime is counted
+# ------------------------------------------------------------
+tracking:
+  # If a staff member did not move for this many seconds, the time stops
+  # counting until they move again.
+  idle-seconds: 30
+  # Movement smaller than this (in blocks) is ignored, so tiny jitters don't count.
+  min-move-distance: 0.1
+  # true = turning the camera also counts as moving. (easy to fake, keep false)
+  count-head-rotation: false
+  # How often the counted seconds are written to the database.
+  flush-interval-seconds: 60
+  # Playtime is not counted in these worlds.
+  ignored-worlds: []
+
+# ------------------------------------------------------------
+# Weeks (used for "this week" and "last week")
+# ------------------------------------------------------------
+week:
+  start-day: MONDAY
+  # Example: Asia/Karachi, Europe/London, America/New_York, UTC
+  timezone: UTC
+
+# ------------------------------------------------------------
+# Staff ranks, from helper up to owner.
+# A player is staff if they have the permission of one of these ranks.
+# With LuckPerms that is "group.<groupname>".
+# If someone matches more than one rank, the highest weight is shown.
+# To add a rank, copy one block and change the id, name and permission.
+# ------------------------------------------------------------
+ranks:
+  owner:
+    display: "Owner"
+    color: "<dark_red>"
+    permission: "group.owner"
+    weight: 100
+  admin:
+    display: "Admin"
+    color: "<red>"
+    permission: "group.admin"
+    weight: 80
+  srmod:
+    display: "Sr.Mod"
+    color: "<gold>"
+    permission: "group.srmod"
+    weight: 60
+  mod:
+    display: "Mod"
+    color: "<dark_aqua>"
+    permission: "group.mod"
+    weight: 40
+  helper:
+    display: "Helper"
+    color: "<green>"
+    permission: "group.helper"
+    weight: 20
+
+# ------------------------------------------------------------
+# GUI look
+# ------------------------------------------------------------
+gui:
+  # <view> becomes This Week / Last Week / All Time
+  title: "<dark_red><bold>STAFF PLAYTIME</bold></dark_red> <dark_gray>»</dark_gray> <gray><view>"
+  border-material: BLACK_STAINED_GLASS_PANE
+  filler-material: GRAY_STAINED_GLASS_PANE
+
+# ------------------------------------------------------------
+# Messages. Placeholders are written like <player>.
+# ------------------------------------------------------------
+messages:
+  no-permission: "<prefix><red>You don't have permission to do that."
+  player-only: "<prefix><red>Only players can use this."
+  unknown-command: "<prefix><red>Unknown subcommand. Try <white>/staffplaytime help"
+  player-not-found: "<prefix><red>No staff playtime found for <white><player><red>."
+  no-data: "<prefix><gray>No playtime has been recorded yet."
+  database-error: "<prefix><red>Database error, check the console."
+  reloaded: "<prefix><green>Config reloaded."
+  reset-done: "<prefix><gray>Reset the playtime of <white><player><gray>."
+  resetall-warning: "<prefix><red>This will reset <white><scope><red>. Run the same command again within 15 seconds to confirm."
+  resetall-done: "<prefix><gray>Reset the playtime of all staff (<white><scope><gray>)."
+  usage-check: "<prefix><gray>Usage: <white>/staffplaytime check [player]"
+  usage-reset: "<prefix><gray>Usage: <white>/staffplaytime reset <player> [all]"
+  help:
+    - "<prefix><gray>Commands:"
+    - "<dark_gray>  » <white>/staffplaytime check [player] <gray>- see playtime"
+    - "<dark_gray>  » <white>/staffplaytime leaderboard <gray>- open the leaderboard GUI"
+    - "<dark_gray>  » <white>/staffplaytime gui <gray>- open the GUI"
+    - "<dark_gray>  » <white>/staffplaytime lastweek <gray>- previous week's playtime"
+    - "<dark_gray>  » <white>/staffplaytime reset <player> [all] <gray>- reset one staff member"
+    - "<dark_gray>  » <white>/staffplaytime resetall [history] <gray>- reset everyone"
+    - "<dark_gray>  » <white>/staffplaytime reload <gray>- reload the config"
+  check:
+    - "<prefix><gray>Playtime of <white><player> <dark_gray>(<rank><dark_gray>)"
+    - "<dark_gray>  » <gray>This week: <white><this_week>"
+    - "<dark_gray>  » <gray>Last week: <white><last_week>"
+    - "<dark_gray>  » <gray>All time: <white><all_time>"
